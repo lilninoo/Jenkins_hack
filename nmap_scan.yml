@@ -1,0 +1,11 @@
+---
+- hosts: all
+  tasks:
+    - name: Nmap Scan
+      command: nmap -sP {{ inventory_hostname }}
+      register: nmap_output
+
+    - name: Save Nmap Output
+      copy:
+        content: "{{ nmap_output.stdout }}"
+        dest: "/save/nmap_results_{{ inventory_hostname }}"
